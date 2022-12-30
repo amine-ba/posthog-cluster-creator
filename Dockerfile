@@ -11,7 +11,7 @@ WORKDIR /app
 # This allows the container build to reuse cached dependencies.
 # Expecting to copy go.mod and if present go.sum.
 COPY go.* ./
-RUN go mod download
+RUN go mod init
 
 # Install Helm
 RUN sudo snap install helm --classic

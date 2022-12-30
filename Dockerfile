@@ -13,6 +13,9 @@ WORKDIR /app
 COPY go.* ./
 RUN go mod download
 
+# Install Helm
+# RUN sudo snap install helm --classic
+
 # Copy local code to the container image.
 COPY invoke.go ./
 

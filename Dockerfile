@@ -14,7 +14,7 @@ COPY go.* ./
 RUN go mod download
 
 # Install Helm
-# RUN sudo snap install helm --classic
+RUN sudo snap install helm --classic
 
 # Copy local code to the container image.
 COPY invoke.go ./
@@ -36,7 +36,7 @@ WORKDIR /
 
 # Copy the binary to the production image from the builder stage.
 COPY --from=builder /app/server /app/server
-COPY script.sh ./
+COPY deploy.sh ./
 
 # Run the web service on container startup.
 CMD ["/app/server"]

@@ -1,4 +1,4 @@
-// Sample helloworld-shell is a Cloud Run shell-script-as-a-service.
+// Sample posthog-shell is a Cloud Run shell-script-as-a-service.
 package main
 
 import (

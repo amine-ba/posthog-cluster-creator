@@ -1,3 +1,3 @@
-module github.com/GoogleCloudPlatform/cloud-run-samples/helloworld-shell
+module github.com/AmirDiafi/posthog-cluster-creator
 
 go 1.19

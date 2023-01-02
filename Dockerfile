@@ -34,6 +34,7 @@ RUN set -x && apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -
 
 RUN apt update
 RUN apt-get install -y snapd
+RUN service docker start
 RUN systemctl start snapd.service
 RUN snap install core
 

@@ -1,3 +1,16 @@
+# Add 
+FROM ubuntu
+# Install Helm
+RUN sudo snap install helm --classic
+# Install Doctl
+RUN sudo snap install doctl
+RUN sudo snap connect doctl:kube-config
+RUN sudo snap connect doctl:ssh-keys :ssh-keys
+RUN sudo snap connect doctl:dot-docker
+RUN mkdir ~/.config
+RUN doctl auth init --context auto-cluster
+RUN doctl account get
+
 
 # Use the offical golang image to create a binary.
 # This is based on Debian and sets the GOPATH to /go.
@@ -12,9 +25,6 @@ WORKDIR /app
 # Expecting to copy go.mod and if present go.sum.
 COPY go.* ./
 RUN go mod download
-
-# Install Helm
-RUN curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
 
 # Copy local code to the container image.
 COPY invoke.go ./

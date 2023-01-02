@@ -1,3 +1,8 @@
+# Add Doctl
+FROM digitalocean/doctl
+
+RUN doctl auth init --context auto-cluster
+RUN doctl account get
 
 # Use the offical golang image to create a binary.
 # This is based on Debian and sets the GOPATH to /go.
@@ -30,24 +35,6 @@ RUN set -x && apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -
     --no-install-recommends \
     ca-certificates && \
     rm -rf /var/lib/apt/lists/*
-
-# Install Doctl
-RUN su root
-RUN apt update -y
-RUN apt install -y snapd
-RUN apt update && apt install sudo
-RUN snap refresh snapd
-RUN snap version
-RUN sudo snap install core
-RUN sudo snap refresh core
-
-RUN snap install doctl
-RUN snap connect doctl:kube-config
-RUN snap connect doctl:ssh-keys :ssh-keys
-RUN snap connect doctl:dot-docker
-
-RUN doctl auth init --context auto-cluster
-RUN doctl account get
 
 # Create and change to the app directory.
 WORKDIR /

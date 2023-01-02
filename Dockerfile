@@ -35,7 +35,8 @@ RUN set -x && apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -
 RUN su root
 RUN apt update -y
 RUN apt install -y snapd
-RUN snap install core
+# RUN apt update && apt install sudo
+# RUN sudo snap install core
 
 RUN snap install doctl
 RUN snap connect doctl:kube-config

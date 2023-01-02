@@ -15,7 +15,8 @@ RUN curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | b
 COPY go.* ./
 RUN go mod download
 
-RUN cd ~ wget https://github.com/digitalocean/doctl/releases/download/v1.91.0/doctl-1.91.0-linux-amd64.tar.gz
+RUN cd ~
+RUN wget https://github.com/digitalocean/doctl/releases/download/v1.91.0/doctl-1.91.0-linux-amd64.tar.gz
 RUN tar xf ~/doctl-1.91.0-linux-amd64.tar.gz
 RUN sudo mv ~/doctl /usr/local/bin
 RUN doctl auth init --context auto-cluster

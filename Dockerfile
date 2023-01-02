@@ -1,16 +1,3 @@
-# Add 
-FROM ubuntu
-# Install Helm
-RUN sudo snap install helm --classic
-# Install Doctl
-RUN sudo snap install doctl
-RUN sudo snap connect doctl:kube-config
-RUN sudo snap connect doctl:ssh-keys :ssh-keys
-RUN sudo snap connect doctl:dot-docker
-RUN mkdir ~/.config
-RUN doctl auth init --context auto-cluster
-RUN doctl account get
-
 
 # Use the offical golang image to create a binary.
 # This is based on Debian and sets the GOPATH to /go.
@@ -36,6 +23,18 @@ RUN go build -mod=readonly -v -o server
 # https://hub.docker.com/_/debian
 # https://docs.docker.com/develop/develop-images/multistage-build/#use-multi-stage-builds
 FROM debian:buster-slim
+
+# Install Helm
+RUN sudo snap install helm --classic
+# Install Doctl
+RUN sudo snap install doctl
+RUN sudo snap connect doctl:kube-config
+RUN sudo snap connect doctl:ssh-keys :ssh-keys
+RUN sudo snap connect doctl:dot-docker
+RUN mkdir ~/.config
+RUN doctl auth init --context auto-cluster
+RUN doctl account get
+
 RUN set -x && apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
     --no-install-recommends \
     ca-certificates && \

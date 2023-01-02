@@ -14,7 +14,7 @@ COPY go.* ./
 RUN go mod download
 
 # Install Helm
-RUN sudo snap install helm --classic
+RUN curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
 
 # Copy local code to the container image.
 COPY invoke.go ./

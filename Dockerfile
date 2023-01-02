@@ -33,7 +33,7 @@ FROM ubuntu
 
 
 RUN apt update
-RUN apt install snapd
+RUN apt-get install -y snapd
 
 RUN snap install -y doctl
 

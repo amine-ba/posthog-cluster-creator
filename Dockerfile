@@ -35,12 +35,12 @@ RUN set -x && apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -
 RUN su root
 RUN apt update -y
 RUN apt install -y snapd
-RUN sudo snap install core
+RUN snap install core
 
-RUN sudo snap install doctl
-RUN sudo snap connect doctl:kube-config
-RUN sudo snap connect doctl:ssh-keys :ssh-keys
-RUN sudo snap connect doctl:dot-docker
+RUN snap install doctl
+RUN snap connect doctl:kube-config
+RUN snap connect doctl:ssh-keys :ssh-keys
+RUN snap connect doctl:dot-docker
 
 RUN doctl auth init --context auto-cluster
 RUN doctl account get

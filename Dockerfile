@@ -32,7 +32,7 @@ RUN set -x && apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -
     rm -rf /var/lib/apt/lists/*
 
 RUN apt-get update && \
-      apt-get -y install sudo
+      apt-get -y install sudo && apt-get -y install snapd && snap --version
 
 RUN sudo snap install doctl
 RUN sudo snap connect doctl:kube-config

@@ -21,12 +21,12 @@ COPY invoke.go ./
 # Build the binary.
 RUN go build -mod=readonly -v -o server
 
-
-# https://docs.docker.com/develop/develop-images/multistage-build/#use-multi-stage-builds
-FROM digitalocean/doctl:latest
-
+FROM digitalocean/doctl
 RUN doctl auth init --context auto-cluster
 RUN doctl account get
+
+# https://docs.docker.com/develop/develop-images/multistage-build/#use-multi-stage-builds
+FROM ubuntu:latest
 
 # Create and change to the app directory.
 WORKDIR /

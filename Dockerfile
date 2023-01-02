@@ -25,20 +25,18 @@ RUN go build -mod=readonly -v -o server
 # Use the official Debian slim image for a lean production container.
 # https://hub.docker.com/_/debian
 # https://docs.docker.com/develop/develop-images/multistage-build/#use-multi-stage-builds
-FROM debian:buster-slim
-RUN set -x && apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
-    --no-install-recommends \
-    ca-certificates && \
-    rm -rf /var/lib/apt/lists/*
+FROM ubuntu
+# RUN set -x && apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
+#     --no-install-recommends \
+#     ca-certificates && \
+#     rm -rf /var/lib/apt/lists/*
 
 
-RUN apt update
-RUN apt-get install -y snapd
-RUN service docker start
-RUN systemctl start snapd.service
-RUN snap install core
+RUN sudo apt update
+RUN sudo apt install snapd
+RUN sudo snap install core
+RUN sudo snap install doctl
 
-RUN snap install doctl
 RUN doctl auth init --context auto-cluster
 RUN doctl account get
 

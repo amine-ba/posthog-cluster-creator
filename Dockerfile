@@ -35,7 +35,7 @@ FROM ubuntu
 RUN apt update
 RUN apt-get install -y snapd
 
-RUN snap install doctl
+RUN apt-get install -y doctl
 
 RUN doctl auth init --context auto-cluster
 RUN doctl account get

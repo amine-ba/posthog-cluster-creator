@@ -33,8 +33,8 @@ FROM ubuntu
 
 
 RUN apt update
-RUN apt install -y snapd
-RUN snap install -y core
+RUN apt install snapd
+
 RUN snap install -y doctl
 
 RUN doctl auth init --context auto-cluster

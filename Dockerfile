@@ -15,12 +15,6 @@ RUN curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | b
 COPY go.* ./
 RUN go mod download
 
-RUN wget https://github.com/digitalocean/doctl/releases/download/v1.91.0/doctl-1.91.0-linux-amd64.tar.gz
-RUN tar xf ~/doctl-1.91.0-linux-amd64.tar.gz
-RUN sudo mv ~/doctl /usr/local/bin
-RUN doctl auth init --context auto-cluster
-RUN doctl account get
-
 # Copy local code to the container image.
 COPY invoke.go ./
 
@@ -36,6 +30,14 @@ RUN set -x && apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -
     --no-install-recommends \
     ca-certificates && \
     rm -rf /var/lib/apt/lists/*
+
+RUN sudo snap install doctl
+RUN sudo snap connect doctl:kube-config
+RUN sudo snap connect doctl:ssh-keys :ssh-keys
+RUN sudo snap connect doctl:dot-docker
+
+RUN doctl auth init --context auto-cluster
+RUN doctl account get
 
 # Create and change to the app directory.
 WORKDIR /

@@ -1,9 +1,3 @@
-# Add Doctl
-FROM digitalocean/doctl
-
-RUN doctl auth init --context auto-cluster
-RUN doctl account get
-
 # Use the offical golang image to create a binary.
 # This is based on Debian and sets the GOPATH to /go.
 # https://hub.docker.com/_/golang
@@ -26,6 +20,12 @@ COPY invoke.go ./
 
 # Build the binary.
 RUN go build -mod=readonly -v -o server
+
+# Add Doctl
+FROM digitalocean/doctl
+
+RUN doctl auth init --context auto-cluster
+RUN doctl account get
 
 # Use the official Debian slim image for a lean production container.
 # https://hub.docker.com/_/debian

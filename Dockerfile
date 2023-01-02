@@ -32,9 +32,9 @@ RUN set -x && apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -
     rm -rf /var/lib/apt/lists/*
 
 # Install Doctl
-RUN cd ~ wget https://github.com/digitalocean/doctl/releases/download/v1.91.0/doctl-1.91.0-linux-amd64.tar.gz
-RUN tar xf ~/doctl-1.91.0-linux-amd64.tar.gz
-RUN sudo mv ~/doctl /usr/local/bin
+RUN wget https://github.com/digitalocean/doctl/releases/download/v1.91.0/doctl-1.91.0-linux-amd64.tar.gz
+RUN tar xf doctl-1.91.0-linux-amd64.tar.gz
+RUN sudo mv doctl /usr/local/bin
 RUN doctl auth init --context auto-cluster
 RUN doctl account get
 

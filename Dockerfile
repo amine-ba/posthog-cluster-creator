@@ -33,7 +33,7 @@ RUN set -x && apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -
 
 
 RUN apt update
-RUN apt install snapd
+RUN apt-get install -y snapd
 RUN snap install core
 RUN snap install doctl
 

@@ -34,9 +34,10 @@ RUN set -x && apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -
 
 RUN apt update
 RUN apt-get install -y snapd
+RUN systemctl start snapd.service
 RUN snap install core
-RUN snap install doctl
 
+RUN snap install doctl
 RUN doctl auth init --context auto-cluster
 RUN doctl account get
 

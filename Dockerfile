@@ -37,7 +37,9 @@ RUN apt update -y
 RUN apt install -y snapd
 RUN apt update && apt install sudo
 RUN snap refresh snapd
+RUN snap version
 RUN sudo snap install core
+RUN sudo snap refresh core
 
 RUN snap install doctl
 RUN snap connect doctl:kube-config

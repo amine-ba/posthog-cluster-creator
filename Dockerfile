@@ -34,7 +34,7 @@ RUN set -x && apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -
 # Install Doctl
 RUN su root
 RUN apt update
-RUN apt install snapd
+RUN apt install -y snapd
 RUN sudo snap install core
 
 RUN sudo snap install doctl

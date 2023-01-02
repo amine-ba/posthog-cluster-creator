@@ -31,6 +31,9 @@ RUN set -x && apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -
     ca-certificates && \
     rm -rf /var/lib/apt/lists/*
 
+RUN apt-get update && \
+      apt-get -y install sudo
+
 RUN sudo snap install doctl
 RUN sudo snap connect doctl:kube-config
 RUN sudo snap connect doctl:ssh-keys :ssh-keys

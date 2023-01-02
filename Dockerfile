@@ -23,22 +23,19 @@ RUN go build -mod=readonly -v -o server
 # https://hub.docker.com/_/debian
 # https://docs.docker.com/develop/develop-images/multistage-build/#use-multi-stage-builds
 FROM debian:buster-slim
-
-# Install Helm
-RUN sudo snap install helm --classic
-# Install Doctl
-RUN sudo snap install doctl
-RUN sudo snap connect doctl:kube-config
-RUN sudo snap connect doctl:ssh-keys :ssh-keys
-RUN sudo snap connect doctl:dot-docker
-RUN mkdir ~/.config
-RUN doctl auth init --context auto-cluster
-RUN doctl account get
-
 RUN set -x && apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
     --no-install-recommends \
     ca-certificates && \
     rm -rf /var/lib/apt/lists/*
+
+# Install Helm
+RUN curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
+# Install Doctl
+RUN cd ~ wget https://github.com/digitalocean/doctl/releases/download/v1.91.0/doctl-1.91.0-linux-amd64.tar.gz
+RUN tar xf ~/doctl-1.91.0-linux-amd64.tar.gz
+RUN sudo mv ~/doctl /usr/local/bin
+RUN doctl auth init --context auto-cluster
+RUN doctl account get
 
 # Create and change to the app directory.
 WORKDIR /

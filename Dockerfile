@@ -31,11 +31,11 @@ RUN set -x && apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -
     ca-certificates && \
     rm -rf /var/lib/apt/lists/*
 
-RUN apt-get install sudo
-RUN sudo apt update
-RUN sudo apt install snapd
-RUN sudo snap install core
-RUN sudo snap install doctl
+
+RUN apt update
+RUN apt install snapd
+RUN snap install core
+RUN snap install doctl
 
 RUN doctl auth init --context auto-cluster
 RUN doctl account get

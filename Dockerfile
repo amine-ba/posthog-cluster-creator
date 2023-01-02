@@ -32,10 +32,10 @@ FROM ubuntu
 #     rm -rf /var/lib/apt/lists/*
 
 
-RUN sudo apt update
-RUN sudo apt install snapd
-RUN sudo snap install core
-RUN sudo snap install doctl
+RUN apt update
+RUN apt install -y snapd
+RUN snap install -y core
+RUN snap install -y doctl
 
 RUN doctl auth init --context auto-cluster
 RUN doctl account get

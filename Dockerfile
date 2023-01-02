@@ -31,16 +31,14 @@ RUN set -x && apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -
     ca-certificates && \
     rm -rf /var/lib/apt/lists/*
 
-# RUN apt-get update && \
-#       apt-get -y install sudo && apt-get -y install snapd && snap --version
+RUN apt-get install sudo
+RUN sudo apt update
+RUN sudo apt install snapd
+RUN sudo snap install core
+RUN sudo snap install doctl
 
-# RUN sudo snap install doctl
-# RUN sudo snap connect doctl:kube-config
-# RUN sudo snap connect doctl:ssh-keys :ssh-keys
-# RUN sudo snap connect doctl:dot-docker
-
-# RUN doctl auth init --context auto-cluster
-# RUN doctl account get
+RUN doctl auth init --context auto-cluster
+RUN doctl account get
 
 # Create and change to the app directory.
 WORKDIR /

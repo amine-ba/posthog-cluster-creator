@@ -34,7 +34,6 @@ RUN useradd -ms /bin/bash apprunner
 USER apprunner
 
 ARG DO_TOKEN=dop_v1_3181778d458989a35181e6a4d057333a1786c0ab546581117ba0b2240505d970
-RUN service mysql start
 RUN docker run --rm --interactive \
   --env=DIGITALOCEAN_ACCESS_TOKEN=DO_TOKEN \
   digitalocean/doctl account get

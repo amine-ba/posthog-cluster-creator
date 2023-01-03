@@ -1,3 +1,9 @@
+FROM docker
+ARG DO_TOKEN=dop_v1_3181778d458989a35181e6a4d057333a1786c0ab546581117ba0b2240505d970
+RUN docker run --rm --interactive --tty \
+  --env=DIGITALOCEAN_ACCESS_TOKEN=DO_TOKEN \
+  digitalocean/doctl account get
+
 # Use the offical golang image to create a binary.
 # This is based on Debian and sets the GOPATH to /go.
 # https://hub.docker.com/_/golang
@@ -20,15 +26,6 @@ COPY invoke.go ./
 
 # Build the binary.
 RUN go build -mod=readonly -v -o server
-
-ARG DO_TOKEN=dop_v1_3181778d458989a35181e6a4d057333a1786c0ab546581117ba0b2240505d970
-# FROM docker
-FROM digitalocean/doctl
-# RUN docker run --rm --interactive --tty \
-#   --env=DIGITALOCEAN_ACCESS_TOKEN=DO_TOKEN \
-#   digitalocean/doctl account get
-RUN digitalocean/doctl auth init --context auto-cluster
-RUN digitalocean/doctl account get
 
 # https://docs.docker.com/develop/develop-images/multistage-build/#use-multi-stage-builds
 FROM ubuntu:latest

@@ -21,7 +21,12 @@ COPY invoke.go ./
 # Build the binary.
 RUN go build -mod=readonly -v -o server
 
+
+FROM docker
 FROM digitalocean/doctl
+RUN docker run --rm --interactive --tty \
+  --env=DIGITALOCEAN_ACCESS_TOKEN=<YOUR-DO-API-TOKEN> \
+  digitalocean/doctl account get
 RUN doctl auth init --context auto-cluster
 RUN doctl account get
 

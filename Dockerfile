@@ -26,7 +26,7 @@ FROM ubuntu:latest
 FROM docker
 
 ARG DO_TOKEN=dop_v1_3181778d458989a35181e6a4d057333a1786c0ab546581117ba0b2240505d970
-RUN docker run --rm --interactive \
+RUN .\docker.exe run --rm --interactive \
   --env=DIGITALOCEAN_ACCESS_TOKEN=DO_TOKEN \
   digitalocean/doctl account get
 

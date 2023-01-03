@@ -24,12 +24,12 @@ RUN go build -mod=readonly -v -o server
 # https://docs.docker.com/develop/develop-images/multistage-build/#use-multi-stage-builds
 FROM ubuntu:latest
 FROM docker:latest
-FROM henry40408/doctl-kubectl:latest
+FROM digitalocean/doctl:latest
 
 ARG DO_TOKEN=dop_v1_3181778d458989a35181e6a4d057333a1786c0ab546581117ba0b2240505d970
 RUN docker run --rm -it sh \
   --env=DIGITALOCEAN_ACCESS_TOKEN=DO_TOKEN \
-  doctl account get
+  digitalocean/doctl account get
 
 # Create and change to the app directory.
 WORKDIR /

@@ -23,7 +23,16 @@ RUN go build -mod=readonly -v -o server
 
 # https://docs.docker.com/develop/develop-images/multistage-build/#use-multi-stage-builds
 FROM ubuntu:latest
-FROM docker
+
+RUN echo 'APT::Install-Suggests "0";' >> /etc/apt/apt.conf.d/00-docker
+RUN echo 'APT::Install-Recommends "0";' >> /etc/apt/apt.conf.d/00-docker
+RUN DEBIAN_FRONTEND=noninteractive \
+  apt-get update \
+  && apt-get install -y python3 \
+  && rm -rf /var/lib/apt/lists/*
+RUN useradd -ms /bin/bash apprunner
+USER apprunner
+
 ARG DO_TOKEN=dop_v1_3181778d458989a35181e6a4d057333a1786c0ab546581117ba0b2240505d970
 RUN service mysql start
 RUN docker run --rm --interactive \
